@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}" th:with="jumbo='Produits'">
+<head>
+<meta charset="UTF-8">
+<title>Produits</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	
+	<h1>Stocks par produit</h1>
+<script src="/webjars/chartjs/3.5.1/dist/chart.min.js"></script>
+		<canvas id="myChart" width="200" height="200"></canvas>		
+		<script th:inline="javascript">		
+		
+			/*<![CDATA[*/
+
+				var tab = /*[[${tab}]]*/ null;
+			var ctx = document.getElementById('myChart').getContext('2d');			
+			var myChart = new Chart(ctx, {
+				type : 'bar',
+				data : { labels: Object.keys(tab),					
+					datasets : [ {						
+						 data: Object.keys(tab).map(function(key) {return tab[key];}),
+						 backgroundColor: [
+			                    'rgb(0,255,255)',
+			                    'rgb(46,139,87)',
+			                    'rgb(255,165,0)'
+			                ],
+			                borderColor: [
+			                    'rgb(0,255,255)',
+			                    'rgb(46,139,87)',
+			                    'rgb(255,165,0)'
+			                ],
+				            borderWidth: 1
+					} ]
+				},
+				options : {
+					plugins: {
+					    legend: {
+					      display: false
+					    }
+					  },
+					scales : {
+						yAxes : [ {
+							ticks : {
+								beginAtZero : true
+							}
+						} ]
+					}
+				}
+			});		
+		
+
+			/*]]>*/
+		</script>
+
+	</div>
+</body>
+</html>
