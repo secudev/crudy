@@ -6,8 +6,8 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import net.secudev.crudy.model.Produit;
-import net.secudev.crudy.model.ProduitRepository;
+import net.secudev.crudy.model.produit.Produit;
+import net.secudev.crudy.model.produit.ProduitRepository;
 
 @Component
 public class Populator {
@@ -20,7 +20,7 @@ public class Populator {
 		Random rnd = new Random();
 		for (int i = 0; i < max; i++) {
 			Produit p = new Produit("produit-" + i, "Description du produit " + i, rnd.nextFloat() * 100,
-					rnd.nextInt(1000), LocalDateTime.now().minusDays(rnd.nextInt(25)));
+					rnd.nextInt(1000), LocalDateTime.now().minusDays(rnd.nextInt(25)).toLocalDate());
 			produits.save(p);
 		}
 	}

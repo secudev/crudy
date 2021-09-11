@@ -1,24 +1,25 @@
-package net.secudev.crudy.model;
+package net.secudev.crudy.model.produit;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.ToString;
+import net.secudev.crudy.model.shared.AEntity;
 
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class Produit extends AEntity{
 
 	@NonNull
@@ -27,6 +28,6 @@ public class Produit extends AEntity{
 	private String description;	
 	private float prixAchat;
 	private int stock;
-	private LocalDateTime dateAchat;
+	private LocalDate dateAchat;
 }
 

@@ -1,4 +1,4 @@
-package net.secudev.crudy.model;
+package net.secudev.crudy.model.shared;
 
 import java.util.UUID;
 

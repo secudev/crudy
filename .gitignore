@@ -1,8 +1,10 @@
 HELP.md
 target/
 .mvn/
+h2/
 !**/src/main/**/target/
 !**/src/test/**/target/
+.gitignore
 
 ### STS ###
 .apt_generated
