@@ -3,6 +3,8 @@ package net.secudev.crudy.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,7 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.secudev.crudy.model.produit.Produit;
@@ -40,16 +45,12 @@ public class ProduitController extends AController {
 
 	@GetMapping("produit/stats")
 	public String stats(Model model) {
-		
-		Map<String, Integer> tab = new LinkedHashMap<>();
 
-		for (Produit p : produits.findAll(Sort.by(Sort.Direction.DESC, "stock"))) {			
+		Map<String, Integer> tab = new LinkedHashMap<>();
+		for (Produit p : produits.findAll(Sort.by(Sort.Direction.DESC, "stock"))) {
 			tab.put(p.getLibelle(), p.getStock());
 		}
-		
-		System.out.println(tab);
 		model.addAttribute("tab", tab);
-
 		return "produit/stats";
 	}
 
@@ -64,11 +65,50 @@ public class ProduitController extends AController {
 		model.addAttribute("totalElements", pageProduits.getTotalElements());
 		model.addAttribute("totalPages", pageProduits.getTotalPages());
 		model.addAttribute("pages", new int[pageProduits.getTotalPages()]);
-
 		// nombre de bouttons de pages -1
 		model.addAttribute("buttonPages", 9);
-
+		
 		return "/produit/liste";
 	}
+	
+//	 @PostMapping("/produit/creation")
+//	    public String addUser(@Valid Produit produit, BindingResult result, Model model) {
+//	        if (result.hasErrors()) {
+//	        	return "produit/modification";
+//	        }	        
+//	        produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),produit.getStock(), produit.getDateAchat()));
+//	        return "redirect:/index";
+//	    }
 
+	@GetMapping("/produit/modification/{id}")
+	public String editProduit(@PathVariable("id") String id, Model model) {
+
+		Produit produit = produits.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Id produit invalide: " + id));
+		model.addAttribute("produit", produit);
+		return "produit/modification";
+	}
+
+	@PostMapping("/produit/{id}")
+	public String updateProduit(@PathVariable("id") String id, @Valid Produit produit, BindingResult result,
+			Model model) {
+		
+		if (result.hasErrors()) {
+			produit.setId(id);
+			return "produit/modification";
+		}
+		produits.save(produit);
+
+		return "redirect:/produit/liste";
+	}
+
+	@GetMapping("/produit/delete/{id}")
+	public String deleteUser(@PathVariable("id") String id, Model model) {
+		
+		Produit produit = produits.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Id produit invalide: " + id));
+		produits.deleteById(produit.getId());
+
+		return "redirect:/produit/liste";
+	}
 }
