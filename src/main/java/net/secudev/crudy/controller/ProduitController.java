@@ -14,7 +14,7 @@ import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
 
 @Controller
-public class ProduitController {
+public class ProduitController extends AController {
 
 	@Autowired
 	private ProduitRepository produits;
@@ -22,16 +22,18 @@ public class ProduitController {
 	@Autowired
 	private Populator populator;
 
-	@GetMapping("produits/populate")
-	public void populate() {
-		populator.initProduit(50);
+	@GetMapping("produit/populate")
+	public String populate() {
+		populator.initProduit(100);
+		return "redirect:/produit/liste";
 	}
 
-	@GetMapping("produits")
+	@GetMapping("produit/liste")
 	public String listProduits(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "size", defaultValue = "10") int size) {
 
-		Page<Produit> pageProduits = produits.findAll(PageRequest.of(page, size, Direction.ASC, "stock","prixAchat"));
+		if(produits.count()==0) populator.initProduit(100);
+		Page<Produit> pageProduits = produits.findAll(PageRequest.of(page, size, Direction.DESC, "stock","prixAchat"));
 		model.addAttribute("pageProduits", pageProduits);
 		model.addAttribute("pageNumber", page);
 		model.addAttribute("size", size);
@@ -40,9 +42,9 @@ public class ProduitController {
 		model.addAttribute("pages", new int[pageProduits.getTotalPages()]);
 
 		//nombre de bouttons de pages -1
-		model.addAttribute("buttonPages", 4);
+		model.addAttribute("buttonPages", 9);
 
-		return "produits";
+		return "/produit/liste";
 	}
 
 }

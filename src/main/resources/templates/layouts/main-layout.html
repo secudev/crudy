@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta name="viewport" charset="UTF-8"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">SecuDev</title>
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css">
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header">
+
+				<nav class="navbar navbar-expand-md navbar-light bg-light">
+					<div class="container-fluid">
+						<a class="navbar-brand" th:href="@{/}"><img src="/img/sd-logo.png"
+							alt=""></a>
+						<button class="navbar-toggler" type="button"
+							data-bs-toggle="collapse" data-bs-target="#navbarNav"
+							aria-controls="navbarNav" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarNav">
+							<ul class="navbar-nav">							
+
+								<li class="nav-item dropdown"><a
+									class="nav-link dropdown-toggle" href="#"
+									id="navbarDropdownMenuLink" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false">Produits</a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink">
+										<li><a class="dropdown-item" th:href="@{/produit/liste}">Lister</a></li>
+										<li><a class="dropdown-item" href="#">Nouveau</a></li>
+										<li><a class="dropdown-item" href="#">Modifications</a></li>
+									</ul></li>
+
+							</ul>
+						</div>
+					</div>
+				</nav>
+
+			</div>
+			<div class="card-body mt-5">
+				<!-- Content Section -->
+				<section layout:fragment="content">
+					<p>This is filled by the content template.</p>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

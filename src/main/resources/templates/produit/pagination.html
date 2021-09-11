@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div th:fragment="pagination">
+		<div class="dataTables_paginate paging_simple_numbers">
+			<ul class="pagination justify-content-center font-weight-bold">
+				<li class="page-item"
+					th:classappend="${pageProduits.hasPrevious()} ? '' : 'disabled'">
+					<a class="page-link" th:if="${pageProduits.hasPrevious()}"
+					th:href="@{/produit/liste(page=${pageProduits.getNumber()-1})}">Précédent</a>
+					<a class="page-link" th:if="${!pageProduits.hasPrevious()}">Précédent</a>
+				</li>
+
+				<li class="page-item"
+					th:if="${pageNumber > -1 && pageNumber < pageProduits.getTotalPages()}"
+					th:classappend="${pageNumber == pageProduits.getNumber()} ? 'active' : ''"
+					th:each="pageNumber : ${#numbers.sequence(pageProduits.getNumber(), pageProduits.getNumber()+buttonPages)}">
+					<a class="page-link"
+					th:href="@{/produit/liste(page=${pageNumber})}">[[${pageNumber}+1]]</a>
+				</li>
+
+				<li class="page-item"
+					th:classappend="${pageProduits.hasNext()} ? '' : 'disabled'">
+					<a class="page-link" th:if="${pageProduits.hasNext()}"
+					th:href="@{/produit/liste(page=${pageProduits.getNumber()+1})}">Suivant</a>
+					<a class="page-link" th:if="${!pageProduits.hasNext()}">Suivant</a>
+				</li>
+			</ul>
+		</div>
+		<div>
+		<p class="text-dark" th:text="${totalElements+' Produits, '+totalPages+' pages'}"></p>		
+		</div>
+	</div>
+</body>
+</html>
