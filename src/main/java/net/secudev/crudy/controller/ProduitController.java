@@ -67,18 +67,27 @@ public class ProduitController extends AController {
 		model.addAttribute("pages", new int[pageProduits.getTotalPages()]);
 		// nombre de bouttons de pages -1
 		model.addAttribute("buttonPages", 4);
-		
+
 		return "/produit/liste";
 	}
-	
-//	 @PostMapping("/produit/creation")
-//	    public String addUser(@Valid Produit produit, BindingResult result, Model model) {
-//	        if (result.hasErrors()) {
-//	        	return "produit/modification";
-//	        }	        
-//	        produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),produit.getStock(), produit.getDateAchat()));
-//	        return "redirect:/index";
-//	    }
+
+	@PostMapping("/produit/creation")
+	public String addUser(@Valid Produit produit, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "produit/modification";
+		}
+
+		produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),
+				produit.getStock(), produit.getDateAchat()));
+		return "redirect:/index";
+	}
+
+	@GetMapping("/produit/creation")
+	public String showAjouterProduit(Model model) {
+		model.addAttribute("produit", new Produit());
+		return "produit/creation";
+	}
 
 	@GetMapping("/produit/modification/{id}")
 	public String editProduit(@PathVariable("id") String id, Model model) {
@@ -92,7 +101,7 @@ public class ProduitController extends AController {
 	@PostMapping("/produit/{id}")
 	public String updateProduit(@PathVariable("id") String id, @Valid Produit produit, BindingResult result,
 			Model model) {
-		
+
 		if (result.hasErrors()) {
 			produit.setId(id);
 			return "produit/modification";
@@ -103,8 +112,8 @@ public class ProduitController extends AController {
 	}
 
 	@GetMapping("/produit/delete/{id}")
-	public String deleteUser(@PathVariable("id") String id, Model model) {
-		
+	public String deleteProduit(@PathVariable("id") String id, Model model) {
+
 		Produit produit = produits.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Id produit invalide: " + id));
 		produits.deleteById(produit.getId());
