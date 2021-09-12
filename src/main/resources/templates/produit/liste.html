@@ -26,7 +26,6 @@
 			</tr>
 			<tr th:each="produit : ${pageProduits}">
 
-
 				<td th:text="${produit.id}" style="display: none;"></td>
 				<td><a class="link-secondary" th:text="${produit.libelle}"
 					th:href="@{'/produit/modification/'+${produit.id}}"></a></td>
@@ -38,16 +37,15 @@
 					th:text="${#numbers.formatDecimal(produit.prixAchat, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 				<td><a class="link-danger"
 					th:href="@{'/produit/delete/'+${produit.id}}"
-					data-bs-toggle="modal" data-bs-target="#delete-modal"><i
+					data-bs-toggle="modal"
+					th:attr="data-bs-target='#deletemodal-'+${produit.id}"><i
 						class="bi bi-trash"></i></a>
-						
-						<div
-			th:insert="layouts/fragments/generic-modal :: delete-modal(url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
-		</div>
-		
-						</td>
+
+					<div
+						th:insert="layouts/fragments/generic-modal :: delete-modal(id='deletemodal-'+${produit.id},url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
+					</div></td>
 		</table>
-		
+
 
 
 		<div th:if="${pageProduits.totalElements>0}"

@@ -53,7 +53,7 @@
 							Supprimer</a>
 
 						<div
-							th:insert="layouts/fragments/generic-modal :: delete-modal(url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
+							th:insert="layouts/fragments/generic-modal :: delete-modal(id='delete-modal',url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
 						</div>
 					</div>
 
