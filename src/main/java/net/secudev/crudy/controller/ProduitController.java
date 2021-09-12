@@ -80,7 +80,7 @@ public class ProduitController extends AController {
 
 		produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),
 				produit.getStock(), produit.getDateAchat()));
-		return "redirect:/index";
+		return "redirect:/produit/liste";
 	}
 
 	@GetMapping("/produit/creation")

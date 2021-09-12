@@ -31,11 +31,11 @@ public class Produit extends AEntity{
 	@NotBlank(message = "Le libellé est obligatoire")
 	private String libelle;
 	private String description;	
-	@NotNull(message = "Le prix d'achat est obligatoire")
+	@NotNull(message = "Le prix d'achat est obligatoire")	
 	private float prixAchat;
 	private int stock;
 	//Nécessaire pour la convertion de date dans form avec thymeleaf, de plus la date devrait avoir 2 accolades ex : *{{dateAchat}}
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateAchat;
+	private LocalDate dateAchat = LocalDate.now();
 }
 
