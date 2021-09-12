@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.extern.log4j.Log4j2;
 import net.secudev.crudy.model.produit.Produit;
 import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
 
 @Controller
+@Log4j2
 public class ProduitController extends AController {
 
 	@Autowired
@@ -75,11 +77,13 @@ public class ProduitController extends AController {
 	public String addUser(@Valid Produit produit, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			return "produit/modification";
+			log.info(result.getAllErrors());
+			return "produit/creation";
 		}
 
 		produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),
 				produit.getStock(), produit.getDateAchat()));
+		
 		return "redirect:/produit/liste";
 	}
 
@@ -102,6 +106,7 @@ public class ProduitController extends AController {
 	public String updateProduit(@PathVariable("id") String id, @Valid Produit produit, BindingResult result,
 			Model model) {
 
+		
 		if (result.hasErrors()) {
 			produit.setId(id);
 			return "produit/modification";

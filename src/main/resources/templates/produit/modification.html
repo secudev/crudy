@@ -4,6 +4,8 @@
 	layout:decorate="~{layouts/main-layout}" th:with="jumbo='Produits'">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet"
+	href="/webjars/bootstrap-icons/font/bootstrap-icons.css">
 <title>Produits</title>
 </head>
 <body>
@@ -16,12 +18,13 @@
 				th:object="${produit}" method="post">
 
 				<div class="form-group row-md-6">
-				<p class="text-center text-secondary" th:text="${produit.id}"></p>
+					<p class="text-center text-secondary" th:text="${produit.id}"></p>
+
 					<label for="libelle" class="col-form-label text-center">Libellé</label>
 					<input type="text" th:field="*{libelle}" class="form-control "
 						id="libelle" placeholder="Libellé"> <span
 						th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}"
-						class="text-danger"></span> <label for="libelle"
+						class="text-danger"></span> <label for="stock"
 						class="col-form-label">Stock</label> <input type="number"
 						th:field="*{stock}" class="form-control" id="stock"
 						placeholder="Stock"> <span
@@ -40,19 +43,23 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-6 mt-5">
+					<div class="col-md-2 mt-5">
 						<input type="submit" class="btn btn-primary" value="Validation">
 					</div>
+					
+					<div class="col-md-6 mt-5">			
+				<a class="btn btn-danger"
+					th:href="@{'/produit/delete/'+${produit.id}}" role="button">
+					Supprimer</a>
+			</div>
+
+
 				</div>
 			</form>
+
+			
 		</div>
-
-
-
-
 	</div>
-
-
 </body>
 
 </html>
