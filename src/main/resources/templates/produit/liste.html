@@ -12,13 +12,13 @@
 		
 	<h1 class="text-center">Produits</h1>
 				
-		<table class="table table-striped table-bordered table-hover">
+		<table  th:if="${pageProduits.totalElements>0}" class="table table-striped table-bordered table-hover">
 			<tr class="table-primary">
 				<th style="display: none;">ID</th>
 				<th>Libellé</th>
 				<th>Stock</th>
 				<th>Date d'achat</th>
-				<th>Prix</th>
+				<th>Prix d'achat</th>
 			</tr>
 			<tr th:each="produit : ${pageProduits}">
 
@@ -28,16 +28,16 @@
 				<!--         <td th:text="${produit.stock>400}? oui : non"></td> -->
 				<td th:text="${produit.stock}"></td>
 				<td
-					th:text="${#temporals.format(produit.dateAchat, 'dd/MMM/yyyy HH:mm')}"></td>
+					th:text="${#temporals.format(produit.dateAchat, 'dd/MMM/yyyy')}"></td>
 				<td
 					th:text="${#numbers.formatDecimal(produit.prixAchat, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
 			</tr>
 		</table>
-		<div th:insert="produit/pagination :: pagination"></div>
+		<div th:if="${pageProduits.totalElements>0}" th:insert="produit/pagination :: pagination"></div>
 		<div class="container-fluid">
 			<div>
 				<a class="link-secondary" th:href="@{/produit/populate}">Création
-					aléatoire de 300 produits</a>
+					aléatoire de 100 produits</a>
 			</div>
 			<div>
 				<a class="link-secondary" th:href="@{/produit/destroy}">Tout

@@ -10,12 +10,13 @@
 
 	<div layout:fragment="content">
 
-		<h1 class="text-center">Nouveau Produit</h1>
+		<h1 class="text-center">Edition Produit</h1>
 		<div class="container">
 			<form action="#" th:action="@{/produit/{id}(id=${produit.id})}"
 				th:object="${produit}" method="post">
 
 				<div class="form-group row-md-6">
+				<p class="text-center text-secondary" th:text="${produit.id}"></p>
 					<label for="libelle" class="col-form-label text-center">Libellé</label>
 					<input type="text" th:field="*{libelle}" class="form-control "
 						id="libelle" placeholder="Libellé"> <span

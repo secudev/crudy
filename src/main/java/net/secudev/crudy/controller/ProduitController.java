@@ -33,7 +33,7 @@ public class ProduitController extends AController {
 
 	@GetMapping("produit/populate")
 	public String populate() {
-		populator.initProduit(300);
+		populator.initProduit(100);
 		return "redirect:/produit/liste";
 	}
 
@@ -66,7 +66,7 @@ public class ProduitController extends AController {
 		model.addAttribute("totalPages", pageProduits.getTotalPages());
 		model.addAttribute("pages", new int[pageProduits.getTotalPages()]);
 		// nombre de bouttons de pages -1
-		model.addAttribute("buttonPages", 9);
+		model.addAttribute("buttonPages", 4);
 		
 		return "/produit/liste";
 	}
