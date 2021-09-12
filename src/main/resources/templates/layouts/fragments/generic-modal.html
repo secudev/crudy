@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+<script src="/webjars/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css">
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<!-- 
+
+Exemple de button dans l'ui qui appelle ce modal et lui passe des params
+-message a afficher
+-url a appeller si validé
+
+
+<button type="button" class="btn btn-outline-light text-dark" data-toggle="modal" th:attr="data-target='#recordDeleteModal'+${record.id}">Delete</button>
+
+     --!>>
+     
+     <!-- Modal -->
+
+	<div th:fragment="delete-modal (url,message)">
+
+		<!-- Modal -->
+		<div class="modal fade" id="delete-modal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-warning">
+						<h5 class="modal-title" id="exampleModalLabel">Avertissement avant suppression !</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body" th:text="${message}"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Annuler</button>
+						<a role="button" class="btn btn-danger" th:href="${url}" th:text="Supprimer">Supprimer</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal end -->
+
+	</div>
+</body>
+</html>

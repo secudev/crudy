@@ -11,9 +11,12 @@
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">
 				<h1 class="display-4">Ooops.... !</h1>
+				
 				<p class="lead" th:text="${status}+' '+${error}"></p>
 				<p  class="lead" th:text="${message}"></p>
 				<img alt="" src="/img/404.gif">
+				<!-- IF admin -->
+				<p  class="lead" th:text="${trace}"></p>				
 			</div>
 		</div>
 	</div>

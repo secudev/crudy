@@ -46,18 +46,22 @@
 					<div class="col-md-2 mt-5">
 						<input type="submit" class="btn btn-primary" value="Validation">
 					</div>
-					
-					<div class="col-md-6 mt-5">			
-				<a class="btn btn-danger"
-					th:href="@{'/produit/delete/'+${produit.id}}" role="button">
-					Supprimer</a>
-			</div>
+
+					<div class="col-md-6 mt-5">
+						<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal"
+							role="button">
+							Supprimer</a>
+
+						<div
+							th:insert="layouts/fragments/generic-modal :: delete-modal(url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
+						</div>
+					</div>
 
 
 				</div>
 			</form>
 
-			
+
 		</div>
 	</div>
 </body>
