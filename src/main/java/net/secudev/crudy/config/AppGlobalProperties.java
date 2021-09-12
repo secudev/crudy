@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class AppGlobalProperties {
 	private AppMode mode;
+	private String motd;
 	
 	public enum AppMode{reset,demo}
 }
