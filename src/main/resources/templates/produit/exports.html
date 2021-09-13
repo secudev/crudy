@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/main-layout}" th:with="jumbo='Produits'">
+<head>
+<meta charset="UTF-8">
+<title>Exports Produits</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+
+		<h1 class="text-center">Exports Produits</h1>
+		
+		<div class="container">
+	
+		<div><a  th:href="@{/produit/exports/excel}">Excel</a></div>
+		<div><a  th:href="@{/produit/exports/pdf}">Pdf</a></div>
+		</div>
+		
+		
+		</div>
+</body>
+</html>
