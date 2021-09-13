@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta name="viewport" charset="UTF-8"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">SecuDev</title>
+<link rel="stylesheet"
+	href="/webjars/bootstrap-icons/font/bootstrap-icons.css">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/css/bootstrap.min.css">
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/}"><img
+				src="/img/sd-logo.png" alt=""></a>
+		</div>
+	</nav>
+	
+	<div class="container mt-10">
+
+		
+
+
+
+			<form th:action="@{/login}" method="post"
+				style="max-width: 350px; margin: 0 auto;">
+
+				<div th:if="${param.error}">
+					<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+				</div>
+
+				<div th:if="${param.logout}">
+					<p class="text-warning text-center mt-10">Vous avez été
+						déconnecté.</p>
+				</div>
+
+				<div class="border p-3 rounded mt-10">
+
+					<div class="alert alert-success">Identifiez vous SVP</div>
+					<p>
+						<input type="text" name="login" class="form-control"
+							placeholder="login" required autofocus />
+					</p>
+					<p>
+						<input type="password" name="password" class="form-control"
+							placeholder="mot de passe" required />
+					</p>
+					<p>
+						<input type="checkbox" name="remember-me" />&nbsp;Se souvenir de
+						moi
+					</p>
+					<p>
+						<input type="submit" value="Se connecter" class="btn btn-primary" />
+					</p>
+				</div>
+			</form>
+		</div>
+	
+
+
+</body>
+</html>

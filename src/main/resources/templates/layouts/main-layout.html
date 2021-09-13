@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 <meta name="viewport" charset="UTF-8"
@@ -45,16 +46,27 @@
 										<li><a class="dropdown-item" th:href="@{/produit/stats}">Statistiques</a></li>								
 									</ul></li>
 									
-									<li class="nav-item dropdown"><a
+									
+									<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_admin')"><a
 									class="nav-link dropdown-toggle" href="#"
 									id="navbarDropdownMenuLink" role="button"
-									data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+									data-bs-toggle="dropdown" aria-expanded="false">Administration</a>
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink">
 										<li><a class="dropdown-item" th:href="@{/h2-console}" th:target="_blank">H2-console</a></li>
 										<li><a class="dropdown-item"th:href="@{/sba}" th:target="_blank">SBA-UI</a></li>		
 										<li><a class="dropdown-item" th:href="@{/admin/users}" th:target="_blank">Gestion des utilisateurs</a></li>
 										<li><a class="dropdown-item" th:href="@{/swagger-ui}" th:target="_blank">API doc</a></li>								
+									</ul></li>									
+									
+									<li class="nav-item dropdown"><a
+									class="nav-link dropdown-toggle" href="#"
+									id="navbarDropdownMenuLink" role="button"
+									data-bs-toggle="dropdown" aria-expanded="false" >Profil(<span sec:authentication="name">...</span>)</a>
+									<ul class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink">
+										<li><a class="dropdown-item" th:href="@{/logout}">Se déconnecter</a></li>
+										<li><a class="dropdown-item"th:href="@{/profil/moncompte}">Mon compte</a></li>															
 									</ul></li>
 							</ul>
 						</div>
@@ -70,6 +82,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<footer th:fragment="footer" class="text-center mt-10">
+		<p>© 2021 SecuDev.net - Stéphane Millet</p>
+	</footer>
+	
 </body>
 </html>
 
