@@ -16,8 +16,8 @@ public class ModelTests {
 	
 	@Test
 	public void deuxProduitsSontEgauxMemeSiLeurIdEstDifferent()	{
-		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
-		Produit p2 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
+		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f,30.10f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
+		Produit p2 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f,30.10f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
 		assertThat(p1.getId()).isNotEqualTo(p2.getId());
 		assertThat(p1).isEqualTo(p2);
 		log.info(p1.equals(p2));

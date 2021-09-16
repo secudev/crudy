@@ -38,7 +38,7 @@ public class ReposTests {
 
 	@Test
 	public void creationConformeDunProduit() {
-		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
+		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f,30.10f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
 		produits.save(p1);
 		assertTrue(produits.findAll().get(0).getId().equals(p1.getId()));
 		assertTrue(produits.findAll().get(0).getDescription().equals(p1.getDescription()));
@@ -49,8 +49,8 @@ public class ReposTests {
 	@Test
 	public void deuxProduitAvecLeMemeLibelleNePeuventPasExister() {
 		
-		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
-		Produit p2 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
+		Produit p1 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f,30.10f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
+		Produit p2 = new Produit("p1", "Le produit 1 sert à tralala", 20.5f,30.10f, 10, LocalDateTime.now().minusDays(50).toLocalDate());
 		produits.save(p1);
 
 		//Capture de l'exception dans un objet

@@ -19,8 +19,8 @@ public class Populator {
 		produits.deleteAll();
 		Random rnd = new Random();	
 		for (int i = 0; i < max; i++) {
-			Produit p = new Produit("produit-" + i, "Description du produit " + i,(float)rnd.nextInt(100),
-					rnd.nextInt(1000), LocalDateTime.now().minusDays(rnd.nextInt(25)).toLocalDate());
+			float pa = (float)rnd.nextInt(100);
+            Produit p = new Produit("produit-" + i, "Description du produit "+ i,pa,pa*2,rnd.nextInt(1000), LocalDateTime.now().minusDays(rnd.nextInt(25)).toLocalDate());
 			produits.save(p);
 		}
 	}
