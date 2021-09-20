@@ -18,7 +18,6 @@ import lombok.extern.log4j.Log4j2;
 import net.secudev.crudy.model.utilisateur.Utilisateur;
 import net.secudev.crudy.model.utilisateur.UtilisateurRepository;
 
-
 @Component
 @Log4j2
 public class JpaAuthenticationProvider implements AuthenticationProvider {

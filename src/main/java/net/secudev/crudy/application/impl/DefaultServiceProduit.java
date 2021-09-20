@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import net.secudev.crudy.application.ServiceProduit;
+import net.secudev.crudy.application.event.EventPublisher;
 import net.secudev.crudy.model.produit.Produit;
 import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
@@ -25,6 +27,10 @@ public class DefaultServiceProduit implements ServiceProduit {
 	@Autowired
 	private Populator populator;
 
+	@Autowired
+	private EventPublisher eventPublisher;
+
+
 	@Override
 	@Transactional
 	public void populateRandom() {
@@ -35,16 +41,18 @@ public class DefaultServiceProduit implements ServiceProduit {
 	@Transactional
 	public void deleteAll() {
 		produits.deleteAll();
+		String auth = SecurityContextHolder.getContext().getAuthentication().getName().toString();
+		eventPublisher.publishGenericEvent("delete all produits", auth);
 	}
 
 	@Override
 	public Map<String, Integer> statStocks() {
-		
+
 		Map<String, Integer> data = new LinkedHashMap<>();
 		for (Produit p : produits.findAll(Sort.by(Sort.Direction.DESC, "stock"))) {
 			data.put(p.getLibelle(), p.getStock());
 		}
-		
+
 		return data;
 	}
 
@@ -59,10 +67,10 @@ public class DefaultServiceProduit implements ServiceProduit {
 		produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),
 				produit.getPrixVente(), produit.getStock(), produit.getDateAchat()));
 	}
-	
+
 	@Override
 	public void update(Produit produit) {
-		produits.save(produit);		
+		produits.save(produit);
 	}
 
 	@Override
@@ -74,5 +82,5 @@ public class DefaultServiceProduit implements ServiceProduit {
 	public void deleteProduitById(String id) {
 		Produit p = findProduitById(id);
 		produits.delete(p);
-	}	
+	}
 }
