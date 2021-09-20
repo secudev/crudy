@@ -1,4 +1,4 @@
-package net.secudev.crudy;
+package net.secudev.crudy.test.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

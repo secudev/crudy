@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
+import net.secudev.crudy.application.event.EventPublisher;
 import net.secudev.crudy.model.utilisateur.Utilisateur;
 import net.secudev.crudy.model.utilisateur.UtilisateurRepository;
 
@@ -23,6 +24,9 @@ public class LoggingSuccess extends SavedRequestAwareAuthenticationSuccessHandle
 	
 	@Autowired
 	private UtilisateurRepository utilisateurs;
+	
+	@Autowired
+	private EventPublisher eventPublisher;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -34,6 +38,7 @@ public class LoggingSuccess extends SavedRequestAwareAuthenticationSuccessHandle
 		target.setDerniereIpConnue(lastIp);
 		utilisateurs.save(target);
 		log.info("Auth OK : "+login+" depuis l'IP "+lastIp);
+		eventPublisher.publishGenericEvent("login OK depuis "+lastIp, login);
 		
 		super.onAuthenticationSuccess(request,response,authentication);
 	}	

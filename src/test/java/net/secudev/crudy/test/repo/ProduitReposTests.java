@@ -1,4 +1,4 @@
-package net.secudev.crudy;
+package net.secudev.crudy.test.repo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -17,7 +17,7 @@ import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
 
 @SpringBootTest
-public class ReposTests {
+public class ProduitReposTests {
 
 	@Autowired
 	private ProduitRepository produits;

@@ -1,4 +1,4 @@
-package net.secudev.crudy;
+package net.secudev.crudy.test.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +12,7 @@ import net.secudev.crudy.model.produit.Produit;
 
 @SpringBootTest
 @Log4j2
-public class ModelTests {
+public class ProduitModelTests {
 	
 	@Test
 	public void deuxProduitsSontEgauxMemeSiLeurIdEstDifferent()	{
