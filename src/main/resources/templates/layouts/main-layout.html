@@ -42,9 +42,9 @@
 									<ul class="dropdown-menu"
 										aria-labelledby="navbarDropdownMenuLink">
 										<li><a class="dropdown-item" th:href="@{/produit/liste}">Rechercher</a></li>
-										<li><a class="dropdown-item"th:href="@{/produit/creation}">Nouveau</a></li>		
-										<li><a class="dropdown-item" th:href="@{/produit/stats}">Statistiques</a></li>
-										<li><a class="dropdown-item" th:href="@{/produit/exports}">Exports</a></li>							
+										<li><a class="dropdown-item" sec:authorize="hasRole('ROLE_admin')" th:href="@{/produit/creation}">Nouveau</a></li>		
+										<li><a class="dropdown-item" sec:authorize="hasRole('ROLE_admin')" th:href="@{/produit/stats}">Statistiques</a></li>
+										<li><a class="dropdown-item" sec:authorize="hasRole('ROLE_admin')" th:href="@{/produit/exports}">Exports</a></li>							
 									</ul></li>
 									
 									

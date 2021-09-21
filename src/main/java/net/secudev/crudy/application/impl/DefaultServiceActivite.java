@@ -16,7 +16,7 @@ public class DefaultServiceActivite implements ServiceActivite {
 	private ActiviteRepository activites;
 
 	@Override
-	public Page<Activite> findAllPage(PageRequest pr) {
+	public Page<Activite> findAll(PageRequest pr) {
 		return activites.findAll(pr);
 	}
 

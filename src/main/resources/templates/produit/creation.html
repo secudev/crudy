@@ -42,6 +42,16 @@
 							th:errors="*{prixAchat}" class="text-danger"></span>
 					</div>
 					
+					
+					<div class="col-md mt-2">
+						<label for="prixVente" class="col-form-label">Prix de vente</label>
+						<input type="number" min="0" max="10000" step="0.01"
+							th:field="*{prixVente}" class="form-control" id="prixVente"
+							placeholder="Prix de vente"> <span
+							th:if="${#fields.hasErrors('prixVente')}"
+							th:errors="*{prixVente}" class="text-danger"></span>
+					</div>
+					
 					<div class="col-md mt-2">
 						<label for="dateAchat" class="col-form-label">Date d'achat</label>
 						<input type="date" th:field="*{{dateAchat}}" class="form-control"

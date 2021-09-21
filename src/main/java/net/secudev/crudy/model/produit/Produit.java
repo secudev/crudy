@@ -36,11 +36,13 @@ public class Produit extends AEntity{
 	@NotNull(message = "Le prix d' achat est obligatoire")	
 	private float prixAchat;
 	
-	//@NotNull(message = "Le prix de vente est obligatoire")	
-	private float prixVente;
+	@NotNull(message = "Le prix de vente est obligatoire")	
+	private float prixVente;	
+
 	
 	@Min(0)
 	private int stock;
+	
 	//Nécessaire pour la convertion de date dans form avec thymeleaf, de plus la date devrait avoir 2 accolades ex : *{{dateAchat}}
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateAchat = LocalDate.now();

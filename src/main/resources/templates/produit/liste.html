@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layouts/main-layout}" th:with="jumbo='Produits'">
 <head>
 <meta charset="UTF-8">
@@ -20,9 +20,10 @@
 				<th style="display: none;">ID</th>
 				<th>Libellé</th>
 				<th>Stock</th>
-				<th>Date d'achat</th>
-				<th>Prix d'achat</th>
-				<th>Actions</th>
+				<th sec:authorize="hasRole('ROLE_admin')">Date d'achat </th>
+				<th sec:authorize="hasRole('ROLE_admin')">Prix d'achat</th>
+				<th>Prix de vente</th>
+				<th sec:authorize="hasRole('ROLE_admin')">Actions</th>
 			</tr>
 			<tr th:each="produit : ${pageProduits}">
 
@@ -32,16 +33,20 @@
 
 				<!--         <td th:text="${produit.stock>400}? oui : non"></td> -->
 				<td th:text="${produit.stock}"></td>
-				<td th:text="${#temporals.format(produit.dateAchat, 'dd/MMM/yyyy')}"></td>
-				<td
+				<td sec:authorize="hasRole('ROLE_admin')" th:text="${#temporals.format(produit.dateAchat, 'dd/MMM/yyyy')}"></td>
+				<td sec:authorize="hasRole('ROLE_admin')"
 					th:text="${#numbers.formatDecimal(produit.prixAchat, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
-				<td><a class="link-danger"
+					
+					<td
+					th:text="${#numbers.formatDecimal(produit.prixVente, 1, 'DEFAULT', 2, 'DEFAULT')}"></td>
+					
+				<td sec:authorize="hasRole('ROLE_admin')"><a class="link-danger"
 					th:href="@{'/produit/delete/'+${produit.id}}"
 					data-bs-toggle="modal"
 					th:attr="data-bs-target='#deletemodal-'+${produit.id}"><i
 						class="bi bi-trash"></i></a>
 
-					<div
+					<div 
 						th:insert="layouts/fragments/generic-modal :: delete-modal(id='deletemodal-'+${produit.id},url=@{'/produit/delete/'+${produit.id}},message='Etes vous sur de vouloir supprimer le produit : '+${produit.libelle})">
 					</div></td>
 		</table>
@@ -50,7 +55,7 @@
 
 		<div th:if="${pageProduits.totalElements>0}"
 			th:insert="produit/pagination :: pagination"></div>
-		<div class="container-fluid">
+		<div class="container-fluid" sec:authorize="hasRole('ROLE_admin')" >
 
 
 			<div>

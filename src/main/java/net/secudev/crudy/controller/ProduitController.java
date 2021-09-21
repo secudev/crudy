@@ -1,5 +1,7 @@
 package net.secudev.crudy.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +47,10 @@ public class ProduitController extends AController {
 		return "produit/stats";
 	}
 
+	
 	@GetMapping("produit/liste")
 	public String listProduits(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-			@RequestParam(name = "size", defaultValue = "10") int size) {
+			@RequestParam(name = "size", defaultValue = "10") int size, HttpServletResponse response) {
 
 		Page<Produit> pageProduits = serviceProduit
 				.findAllPage(PageRequest.of(page, size, Direction.DESC, "stock", "prixAchat"));
@@ -61,6 +64,21 @@ public class ProduitController extends AController {
 
 		// nombre de bouttons de pages -1
 		model.addAttribute("buttonPages", 4);
+		
+		
+		Cookie c1 = new Cookie("param1",  java.util.Base64.getEncoder().encodeToString("value encoden in base64".getBytes()));
+		
+		c1.setDomain("localhost");
+		c1.setPath("/");
+		c1.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+		c1.setHttpOnly(true);//restrient la lecture seulement via http et pas JS
+		
+		Cookie c2 = new Cookie("param2", "value2");//
+		c2.setSecure(true);
+
+		//add cookie to response
+		response.addCookie(c1);
+		response.addCookie(c2);
 		
 		return "/produit/liste";
 	}
