@@ -17,7 +17,7 @@ import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
 
 @SpringBootTest
-public class ProduitReposTests {
+public class ProduitRepoTests {
 
 	@Autowired
 	private ProduitRepository produits;
