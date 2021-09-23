@@ -23,11 +23,12 @@ public class AuthTests {
 	
 	@Test
 	public void creationUserConforme()	{
-		
+		utilisateurs.deleteAll();
 		Utilisateur user = new Utilisateur("user", encoder.encode("password"), "user@mail.com", false,null,null);
 		Utilisateur admin = new Utilisateur("admin", encoder.encode("password"), "admin@mail.com", true,null,null);
 		utilisateurs.saveAll(Arrays.asList(user,admin));
 		assertThat(utilisateurs.count()).isEqualTo(2);	
 		assertThat(utilisateurs.findByIsAdminTrue().size()).isEqualTo(1);
+		utilisateurs.deleteAll();
 	}
 }
