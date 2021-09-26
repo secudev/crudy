@@ -47,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().headers().frameOptions().disable().and() .authorizeRequests()		
 		.antMatchers("/webjars/**").permitAll()
 		.antMatchers("/img/**").permitAll()
+		.antMatchers("/actuator").permitAll()
+		.antMatchers("/actuator/**").permitAll()
 		.anyRequest().authenticated().and().rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400).and()	
 		.formLogin().permitAll()			
 		.loginPage("/login").usernameParameter("login")

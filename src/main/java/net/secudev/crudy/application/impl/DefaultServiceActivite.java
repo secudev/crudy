@@ -1,6 +1,7 @@
 package net.secudev.crudy.application.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class DefaultServiceActivite implements ServiceActivite {
 	private ActiviteRepository activites;
 
 	@Override
+	@Cacheable("activites")
 	public Page<Activite> findAll(PageRequest pr) {
 		return activites.findAll(pr);
 	}
@@ -29,5 +31,4 @@ public class DefaultServiceActivite implements ServiceActivite {
 	public Page<Activite> findByActionContainsIgnoreCase(String keyword,PageRequest pr) {
 		return activites.findByActionContainsIgnoreCase(keyword,pr);
 	}
-
 }

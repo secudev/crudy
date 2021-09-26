@@ -16,8 +16,8 @@ public interface ServiceProduit {
 	@Secured("ROLE_admin")
 	void deleteAll();
 	
+	@Secured("ROLE_admin")
 	Map<String, Integer> statStocks();	
-	
 	
 	Page<Produit> findAllPage(PageRequest pr);
 	

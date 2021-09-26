@@ -19,6 +19,7 @@
 		<flyway.user>sa</flyway.user>
         <flyway.password></flyway.password>
         <flyway.url>jdbc:h2:file:./h2/crudy;DB_CLOSE_ON_EXIT=FALSE</flyway.url>
+		<spring-boot-admin.version>2.4.3</spring-boot-admin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -122,6 +123,18 @@
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -140,5 +153,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<distributionManagement>
+   <repository>
+     <id>github</id>
+     <name>GitHub Secudev Apache Maven Packages</name>
+     <url>https://maven.pkg.github.com/secudev/crudy</url>
+   </repository>
+</distributionManagement>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-dependencies</artifactId>
+				<version>${spring-boot-admin.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

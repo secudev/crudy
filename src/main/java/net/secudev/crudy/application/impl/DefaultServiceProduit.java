@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,6 +22,7 @@ import net.secudev.crudy.model.produit.ProduitRepository;
 import net.secudev.crudy.utils.Populator;
 
 @Service
+@CacheConfig(cacheNames = { "produits" })
 public class DefaultServiceProduit implements ServiceProduit {
 
 	@Autowired
@@ -30,15 +34,16 @@ public class DefaultServiceProduit implements ServiceProduit {
 	@Autowired
 	private EventPublisher eventPublisher;
 
-
 	@Override
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public void populateRandom() {
 		populator.initProduit(100);
 	}
 
 	@Override
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public void deleteAll() {
 		produits.deleteAll();
 		String auth = SecurityContextHolder.getContext().getAuthentication().getName().toString();
@@ -57,18 +62,21 @@ public class DefaultServiceProduit implements ServiceProduit {
 	}
 
 	@Override
+	@Cacheable
 	public Page<Produit> findAllPage(PageRequest pr) {
 		return produits.findAll(pr);
 	}
 
 	@Override
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public void save(Produit produit) {
 		produits.save(new Produit(produit.getLibelle(), produit.getDescription(), produit.getPrixAchat(),
 				produit.getPrixVente(), produit.getStock(), produit.getDateAchat()));
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	public void update(Produit produit) {
 		produits.save(produit);
 	}
@@ -79,6 +87,7 @@ public class DefaultServiceProduit implements ServiceProduit {
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	public void deleteProduitById(String id) {
 		Produit p = findProduitById(id);
 		produits.delete(p);
